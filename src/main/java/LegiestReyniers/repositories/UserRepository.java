@@ -1,7 +1,7 @@
-package model;
+package LegiestReyniers.repositories;
+import LegiestReyniers.model.User;
 import org.springframework.data.repository.CrudRepository;
 
-import model.User;
 
 // This will be AUTO IMPLEMENTED by Spring into a Bean called userRepository
 // CRUD refers Create, Read, Update, Delete
