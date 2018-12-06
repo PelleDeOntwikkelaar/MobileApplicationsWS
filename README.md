@@ -1,6 +1,6 @@
 # MobileApplicationsWS
 
-In deze repository staat de web server kant van het vak mobile appliaction.
+In deze repository staat de web server kant van het vak mobile application.
 Het is gebouwd met het spring framework en gemanaged door maven.
 
 
