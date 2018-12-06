@@ -1,8 +1,7 @@
 package LegiestReyniers.control;
 
-import LegiestReyniers.control.services.GameService;
-import LegiestReyniers.control.services.UserService;
-import LegiestReyniers.model.User;
+import LegiestReyniers.control.services.impl.StationServiceImpl;
+import LegiestReyniers.model.Station;
 import org.springframework.stereotype.Controller;
 
 import javax.annotation.Resource;
@@ -11,18 +10,10 @@ import javax.annotation.Resource;
 public class ServiceController {
 
     @Resource
-    private UserService userService;
-
-    @Resource
-    private GameService gameService;
+    private StationServiceImpl stationService;
 
 
-    public void addNewUser(String name, String email) {
-        userService.addNewUser(name,email);
-    }
-
-
-    public Iterable<User> findAllUsers() {
-        return userService.findAllUsers();
+    public Iterable<Station> findAllStations() {
+        return stationService.findAllStations();
     }
 }
