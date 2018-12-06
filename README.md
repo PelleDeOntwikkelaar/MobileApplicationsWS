@@ -40,7 +40,7 @@ Het bestaat uit de volgende componenten:
 * Table met station naam naar code maping.
 * Table met vertragin resultaten(timestamp, stationscode, total delay).
 * Table met opzoekingen per gebruiker.
-* Table met resultaten van R analyse. (station, delayID), (dag delayID) (DelayID, gem Delay, piek, dal)
+* Table met resultaten van R analyse. (station, delayID), (dag, delayID) (DelayID, gem Delay, piek, dal)
 
 ## Project specificaties
 * Broadcast message: bepalen van locatie in de app, vervolgens de dichtste 10 stations tonen.
