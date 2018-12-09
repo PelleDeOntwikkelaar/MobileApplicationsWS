@@ -21,9 +21,16 @@ public class MainController {
     }
     
 
-    @GetMapping(path="/all")
+    @GetMapping(path="/stations")
     public @ResponseBody Iterable<Station> getAllStations() {
                                 // This returns a JSON or XML with the users
         return service.findAllStations();
+    }
+
+    @GetMapping(path = "addToFavorites")
+    public @ResponseBody String addToFavorites(@RequestParam String stationCode
+            , @RequestParam String userId){
+        service.addToFavorites(stationCode,Integer.parseInt(userId));
+        return "succes";
     }
 }

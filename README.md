@@ -59,3 +59,4 @@ Het bestaat uit de volgende componenten:
 * Resultaten op de applicatie grafisch weergeven.
 * SQLite databank maken.
 * Identificatie mechanismes bouwen.
+* url bouwen met adres: 
