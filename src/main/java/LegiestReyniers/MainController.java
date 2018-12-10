@@ -18,6 +18,8 @@ public class MainController {
     @Autowired
     public MainController(ServiceController service) {
         this.service = service;
+        this.service.startThread1();
+        //this.service.startThread2();
     }
     
 
@@ -27,7 +29,7 @@ public class MainController {
         return service.findAllStations();
     }
 
-    @GetMapping(path = "addToFavorites")
+    @GetMapping(path = "/addToFavorites")
     public @ResponseBody String addToFavorites(@RequestParam String stationCode
             , @RequestParam String userId){
         service.addToFavorites(stationCode,Integer.parseInt(userId));
