@@ -1,6 +1,5 @@
 package LegiestReyniers.support;
 
-
 import LegiestReyniers.control.services.impl.StationServiceImpl;
 import LegiestReyniers.model.DelaySingleRecord;
 import LegiestReyniers.model.Station;
@@ -39,6 +38,7 @@ public class TrackStationThread implements Runnable {
                 Iterable<Station> tracked= stationService.findAllTrackedStations();
 
                 for(Station station: tracked){
+
                     final String uri = station.getUri();
 
                     RestTemplate restTemplate = new RestTemplate();
@@ -46,23 +46,24 @@ public class TrackStationThread implements Runnable {
                     JSONObject object = new JSONObject(result);
                     JSONArray jsonArray = new JSONArray(object.getJSONArray("@graph"));
                     int delay=0;
+
                     for (int i =0;i<jsonArray.length();i++){
                         JSONObject o = jsonArray.getJSONObject(i);
                         delay+=o.getInt("delay");
-
                     }
+
                     int i = (int) (new Date().getTime()/1000);
+
                     DelaySingleRecord record = new DelaySingleRecord();
                     record.setStation_uri(station.getUri());
                     record.setTotalDelay(delay);
                     record.setTimestamp(i);
+
                     delaySingleRecordRepository.save(record);
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
-
         }
     }
 }
