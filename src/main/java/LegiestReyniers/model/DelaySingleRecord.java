@@ -1,6 +1,5 @@
 package LegiestReyniers.model;
 
-
 import javax.persistence.*;
 
 @Entity

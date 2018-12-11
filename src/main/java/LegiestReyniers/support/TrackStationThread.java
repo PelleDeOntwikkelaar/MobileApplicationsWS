@@ -35,8 +35,12 @@ public class TrackStationThread implements Runnable {
 
     @Override
     public void run() {
+
+        delaySingleRecordRepository.deleteAll();
+
         gson=new Gson();
 
+        //We moeten onze eigen id bijhouden, want er triggeren anders een bug in Java
         index_id = 0;
 
         while(true){
