@@ -74,6 +74,12 @@
             <version>20180813</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.nuiton.thirdparty/JRI -->
+        <dependency>
+            <groupId>org.nuiton.thirdparty</groupId>
+            <artifactId>JRI</artifactId>
+            <version>0.9-9</version>
+        </dependency>
 
 
     </dependencies>
