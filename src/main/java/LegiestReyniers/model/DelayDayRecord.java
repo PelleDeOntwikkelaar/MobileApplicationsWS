@@ -11,7 +11,7 @@ public class DelayDayRecord {
     @Id
     private int id;
 
-    private String stationUri;
+    private String station_uri;
     private int timestamp;
     private int total_delay;
     private int average_delay;
@@ -28,12 +28,12 @@ public class DelayDayRecord {
         this.id = id;
     }
 
-    public String getStationUri() {
-        return stationUri;
+    public String getStation_uri() {
+        return station_uri;
     }
 
-    public void setStationUri(String stationUri) {
-        this.stationUri = stationUri;
+    public void setStation_uri(String station_uri) {
+        this.station_uri = station_uri;
     }
 
     public int getTimestamp() {

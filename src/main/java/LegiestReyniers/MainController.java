@@ -24,7 +24,6 @@ public class MainController {
         //this.service.startThread1();
         //this.service.startThread2();
     }
-    
 
     @GetMapping(path="/stations")
     public @ResponseBody Iterable<Station> getAllStations() {
@@ -64,8 +63,5 @@ public class MainController {
         return "succes";
     }
 
-
     //todo: create following mappings -login, -facebook login, -get data, -get favorites, -add to tracked.
-
-
 }

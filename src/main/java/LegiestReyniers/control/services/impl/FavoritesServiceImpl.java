@@ -5,6 +5,7 @@ import LegiestReyniers.repositories.FavoritRepository;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 
 @Service
 public class FavoritesServiceImpl {
@@ -20,5 +21,22 @@ public class FavoritesServiceImpl {
     }
 
 
+    public Iterable<Favorit> findByUserId(int userID) {
 
+        Iterable<Favorit> allFavorit = favoritRepository.findAll();
+
+        ArrayList<Favorit> favorits = new ArrayList<>();
+
+        for(Favorit f: allFavorit){
+
+            if(f.getUserId() == userID){
+                favorits.add(f);
+            }
+
+        }
+
+        Iterable<Favorit> complete = favorits;
+        return complete;
+
+    }
 }

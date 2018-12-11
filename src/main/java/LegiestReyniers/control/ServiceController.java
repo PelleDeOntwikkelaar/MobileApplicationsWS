@@ -1,5 +1,6 @@
 package LegiestReyniers.control;
 
+import LegiestReyniers.control.services.impl.DelayDayImplementation;
 import LegiestReyniers.control.services.impl.FacebookServiceImpl;
 import LegiestReyniers.control.services.impl.FavoritesServiceImpl;
 import LegiestReyniers.control.services.impl.StationServiceImpl;
@@ -26,9 +27,6 @@ public class ServiceController {
     private StationServiceImpl stationService;
 
     @Resource
-    private FavoritRepository favoritRepository;
-
-    @Resource
     private FavoritesServiceImpl favoritesService;
 
     @Resource
@@ -38,7 +36,7 @@ public class ServiceController {
     private FacebookServiceImpl facebookService;
 
     @Resource
-    private DelayDayRecordRepository delayDayRecordRepository;
+    private DelayDayImplementation delayDayService;
 
     @Resource
     private AsynchronousService1 asynchronousService1;
@@ -70,11 +68,11 @@ public class ServiceController {
     }
 
     public Iterable<DelayDayRecord> getData(String station_uri) {
-        return delayDayRecordRepository.findByStationUri(station_uri);
+        return delayDayService.findByStationUri(station_uri);
     }
 
     public Iterable<Favorit> getFavorites(int userID) {
-        return favoritRepository.findByUserId(userID);
+        return favoritesService.findByUserId(userID);
     }
 
     public void addToTracked(String stationID) {
