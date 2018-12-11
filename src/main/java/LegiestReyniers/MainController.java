@@ -35,4 +35,8 @@ public class MainController {
         service.addToFavorites(stationCode,Integer.parseInt(userId));
         return "succes";
     }
+
+    //todo: create follwoing mappings -login, -facebook login, -get data, -get favorites, -add to tracked.
+
+
 }
