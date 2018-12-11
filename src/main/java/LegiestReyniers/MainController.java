@@ -21,7 +21,7 @@ public class MainController {
     @Autowired
     public MainController(ServiceController service) {
         this.service = service;
-        //this.service.startThread1();
+        this.service.startThread1();
         //this.service.startThread2();
     }
 

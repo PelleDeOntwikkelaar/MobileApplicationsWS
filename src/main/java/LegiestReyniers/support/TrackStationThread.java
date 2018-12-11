@@ -5,19 +5,19 @@ import LegiestReyniers.model.DelaySingleRecord;
 import LegiestReyniers.model.Station;
 import LegiestReyniers.repositories.DelaySingleRecordRepository;
 import com.google.gson.Gson;
-import com.sun.xml.internal.bind.v2.runtime.output.SAXOutput;
-import com.sun.xml.internal.ws.server.provider.SyncProviderInvokerTube;
-import org.h2.store.PageStoreInDoubtTransaction;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import org.slf4j.Logger;
-import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Date;
 
 @Component
@@ -31,44 +31,111 @@ public class TrackStationThread implements Runnable {
     @Resource
     private DelaySingleRecordRepository delaySingleRecordRepository;
 
+    private int index_id;
+
     @Override
     public void run() {
         gson=new Gson();
 
+        index_id = 0;
+
         while(true){
             try {
                 Thread.sleep(1000);
+
                 Iterable<Station> tracked= stationService.findAllTrackedStations();
 
                 for(Station station: tracked){
 
                     final String uri = station.getUri();
 
-                    RestTemplate restTemplate = new RestTemplate();
-                    String result = restTemplate.getForObject(uri, String.class);
-                    JSONObject object = new JSONObject(result);
-                    JSONArray jsonArray = new JSONArray(object.getJSONArray("@graph"));
+
+                    JsonObject jsonGoogle = getJson(uri);
+
+                    //JSONObject object = new JSONObject(jsonGoogle.toString());
+
+                    //JSONArray jsonArray = new JSONArray(object.getJSONArray("@graph"));
+                    JsonArray jsonArray = jsonGoogle.getAsJsonArray("@graph");
                     int delay=0;
 
-                    for (int i =0;i<jsonArray.length();i++){
-                        JSONObject o = jsonArray.getJSONObject(i);
-                        delay+=o.getInt("delay");
+                    for(JsonElement element: jsonArray){
+                        JsonObject obj = element.getAsJsonObject();
+                        int delay_ = obj.get("delay").getAsInt();
+                        delay += delay_;
                     }
 
+
+                    /*for (int i =0;i<jsonArray.length();i++){
+                        JsonObject o = jsonArray.getAsJsonObject(i);
+                        delay+=o.getInt("delay");
+                    }
+*/
                     int i = (int) (new Date().getTime()/1000);
 
                     DelaySingleRecord record = new DelaySingleRecord();
+
+                    record.setTable_id(index_id);
                     record.setStation_uri(station.getUri());
-                    record.setTotalDelay(delay);
+                    record.setTotaldelay(delay);
                     record.setTimestamp(i);
 
                     delaySingleRecordRepository.save(record);
 
+                    index_id++;
                     System.out.println("Record gesaved!");
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    public JsonObject getJson(String station){
+
+        String s = null;
+
+        try {
+
+            String cmd = "wget -qO- "+  station +" | python -m json.tool";
+
+            //Process aanmaken waarin we
+            ProcessBuilder builder = new ProcessBuilder("/bin/sh","-c"
+                    ,"wget -qO- http://irail.be/stations/NMBS/008821006 | python -m json.tool");
+            builder.redirectErrorStream(true);
+            Process p = null;
+
+            p = builder.start();
+
+
+            //Reader die de output van het command zal uitlezen
+            BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            String line;
+            StringBuilder sb = new StringBuilder();
+            while (true) {
+                line = r.readLine();
+                if (line == null) {
+                    break;
+                }
+                if (!line.contains("Columns"))
+                    sb.append(line);
+            }
+
+            s = sb.toString();
+
+
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Gson gson = new Gson();
+
+        JsonElement element = gson.fromJson (s, JsonElement.class);
+
+        return element.getAsJsonObject();
+
+    }
+
+    public void setIndex_id(int index_id) {
+        this.index_id = index_id;
     }
 }

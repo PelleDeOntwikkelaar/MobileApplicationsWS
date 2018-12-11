@@ -1,19 +1,21 @@
 package LegiestReyniers.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name="delay_single_record")
 public class DelaySingleRecord {
 
     @Id
+    @Column(name="table_id")
     private int table_id;
 
     private int timestamp;
     private String station_uri;
-    private int totalDelay;
+    private int totaldelay;
+
+    public DelaySingleRecord() {}
 
     public int getTimestamp() {
         return timestamp;
@@ -39,11 +41,11 @@ public class DelaySingleRecord {
         this.station_uri = station_uri;
     }
 
-    public int getTotalDelay() {
-        return totalDelay;
+    public int getTotaldelay() {
+        return totaldelay;
     }
 
-    public void setTotalDelay(int totalDelay) {
-        this.totalDelay = totalDelay;
+    public void setTotaldelay(int totaldelay) {
+        this.totaldelay = totaldelay;
     }
 }
