@@ -1,11 +1,16 @@
 package LegiestReyniers.control;
 
+import LegiestReyniers.control.services.impl.FacebookServiceImpl;
 import LegiestReyniers.control.services.impl.FavoritesServiceImpl;
 import LegiestReyniers.control.services.impl.StationServiceImpl;
 import LegiestReyniers.control.services.threads.AsynchronousService1;
 import LegiestReyniers.model.DelayDayRecord;
+import LegiestReyniers.model.Email_user;
 import LegiestReyniers.model.Favorit;
 import LegiestReyniers.model.Station;
+import LegiestReyniers.repositories.DelayDayRecordRepository;
+import LegiestReyniers.repositories.EmailUserRepository;
+import LegiestReyniers.repositories.FavoritRepository;
 import org.springframework.stereotype.Controller;
 
 import javax.annotation.Resource;
@@ -21,7 +26,19 @@ public class ServiceController {
     private StationServiceImpl stationService;
 
     @Resource
+    private FavoritRepository favoritRepository;
+
+    @Resource
     private FavoritesServiceImpl favoritesService;
+
+    @Resource
+    private EmailUserRepository emailUserRepository;
+
+    @Resource
+    private FacebookServiceImpl facebookService;
+
+    @Resource
+    private DelayDayRecordRepository delayDayRecordRepository;
 
     @Resource
     private AsynchronousService1 asynchronousService1;
@@ -43,17 +60,24 @@ public class ServiceController {
         asynchronousService1.executeAsynchronously();
     }
 
-    public String loginEmail(String email, String password) {
-
+    public Email_user loginEmail(String email, String password) {
+        return emailUserRepository.findByEmailAndPassword(email,password);
     }
 
-    public String loginFacebook() {
+    public void loginFacebook(String name, int id) {
+        //Gwn adden naar de db
+        facebookService.addFacebook(id,name);
     }
 
-    public Iterable<DelayDayRecord> getData(String stationCode) {
+    public Iterable<DelayDayRecord> getData(String station_uri) {
+        return delayDayRecordRepository.findByStationUri(station_uri);
     }
 
-    public Iterable<Favorit> getFavorites(String userID) {
-        return null;
+    public Iterable<Favorit> getFavorites(int userID) {
+        return favoritRepository.findByUserId(userID);
+    }
+
+    public void addToTracked(String stationID) {
+        stationService.addToTracked(stationID);
     }
 }

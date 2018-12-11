@@ -5,7 +5,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="delaySingleRecord")
+@Table(name="delay_single_record")
 public class DelaySingleRecord {
 
     @Id

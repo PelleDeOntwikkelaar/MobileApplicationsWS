@@ -2,6 +2,7 @@ package LegiestReyniers;
 
 import LegiestReyniers.control.ServiceController;
 import LegiestReyniers.model.DelayDayRecord;
+import LegiestReyniers.model.Email_user;
 import LegiestReyniers.model.Favorit;
 import LegiestReyniers.model.Station;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +21,14 @@ public class MainController {
     @Autowired
     public MainController(ServiceController service) {
         this.service = service;
-        this.service.startThread1();
+        //this.service.startThread1();
         //this.service.startThread2();
     }
     
 
     @GetMapping(path="/stations")
     public @ResponseBody Iterable<Station> getAllStations() {
-                                // This returns a JSON or XML with the users
+        // This returns a JSON or XML with the users
         return service.findAllStations();
     }
 
@@ -38,13 +39,13 @@ public class MainController {
     }
 
     @GetMapping(path = "/loginEmail")
-    public @ResponseBody String loginEmail(@RequestParam String email, @RequestParam String password){
+    public @ResponseBody Email_user loginEmail(@RequestParam String email, @RequestParam String password){
         return service.loginEmail(email, password);
     }
 
     @GetMapping(path = "/loginFacebook")
-    public @ResponseBody String loginFacebook(){
-        return service.loginFacebook();
+    public @ResponseBody void loginFacebook(@RequestParam String name, @RequestParam int id){
+        service.loginFacebook(name, id);
     }
 
     @GetMapping(path = "/getData")
@@ -53,13 +54,14 @@ public class MainController {
     }
 
     @GetMapping(path = "/getFavorites")
-    public @ResponseBody Iterable<Favorit> getFavorites (@RequestParam String userID){
+    public @ResponseBody Iterable<Favorit> getFavorites (@RequestParam int userID){
         return service.getFavorites(userID);
     }
 
     @GetMapping(path = "/addToTracked")
-    public @ResponseBody String addToTracked (@RequestParam String email, @RequestParam String password){
-        return service.loginEmail(email, password);
+    public @ResponseBody String addToTracked (@RequestParam String stationID){
+        service.addToTracked(stationID);
+        return "succes";
     }
 
 

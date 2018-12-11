@@ -15,9 +15,10 @@ public class FavoritesServiceImpl {
     public void addToFavorites(String stationUri, int userId){
         Favorit favorit = new Favorit();
         favorit.setStation_uri(stationUri);
-        favorit.setUser_id(userId);
+        favorit.setUserId(userId);
         favoritRepository.save(favorit);
     }
+
 
 
 }
