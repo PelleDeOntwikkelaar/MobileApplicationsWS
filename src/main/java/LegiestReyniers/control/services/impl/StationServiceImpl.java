@@ -1,14 +1,13 @@
 package LegiestReyniers.control.services.impl;
 
 import LegiestReyniers.model.Station;
-import LegiestReyniers.model.TrackedStation;
+import LegiestReyniers.model.Tracked_station;
 import LegiestReyniers.repositories.StationRepository;
 import LegiestReyniers.repositories.TrackedStationRepository;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 @Service
 public class StationServiceImpl  {
@@ -25,10 +24,10 @@ public class StationServiceImpl  {
 
 
     public Iterable<Station> findAllTrackedStations() {
-        Iterable<TrackedStation> trackedStationIterable = trackedStationRepository.findAll();
+        Iterable<Tracked_station> trackedStationIterable = trackedStationRepository.findAll();
         ArrayList<Station> stationArrayList =new ArrayList<>();
 
-        for(TrackedStation trackedStation: trackedStationIterable){
+        for(Tracked_station trackedStation: trackedStationIterable){
             stationArrayList.add(stationRepository.findByUri(trackedStation.getUri()));
         }
         Iterable<Station> output = stationArrayList;

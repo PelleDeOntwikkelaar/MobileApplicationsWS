@@ -5,6 +5,9 @@ import LegiestReyniers.model.DelaySingleRecord;
 import LegiestReyniers.model.Station;
 import LegiestReyniers.repositories.DelaySingleRecordRepository;
 import com.google.gson.Gson;
+import com.sun.xml.internal.bind.v2.runtime.output.SAXOutput;
+import com.sun.xml.internal.ws.server.provider.SyncProviderInvokerTube;
+import org.h2.store.PageStoreInDoubtTransaction;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.LoggerFactory;
@@ -34,7 +37,7 @@ public class TrackStationThread implements Runnable {
 
         while(true){
             try {
-                Thread.sleep(300000);
+                Thread.sleep(1000);
                 Iterable<Station> tracked= stationService.findAllTrackedStations();
 
                 for(Station station: tracked){
@@ -60,6 +63,8 @@ public class TrackStationThread implements Runnable {
                     record.setTimestamp(i);
 
                     delaySingleRecordRepository.save(record);
+
+                    System.out.println("Record gesaved!");
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();

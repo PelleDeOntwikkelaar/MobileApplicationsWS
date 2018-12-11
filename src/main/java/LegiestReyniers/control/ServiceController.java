@@ -3,6 +3,8 @@ package LegiestReyniers.control;
 import LegiestReyniers.control.services.impl.FavoritesServiceImpl;
 import LegiestReyniers.control.services.impl.StationServiceImpl;
 import LegiestReyniers.control.services.threads.AsynchronousService1;
+import LegiestReyniers.model.DelayDayRecord;
+import LegiestReyniers.model.Favorit;
 import LegiestReyniers.model.Station;
 import org.springframework.stereotype.Controller;
 
@@ -39,5 +41,19 @@ public class ServiceController {
 
     public void startThread1(){
         asynchronousService1.executeAsynchronously();
+    }
+
+    public String loginEmail(String email, String password) {
+
+    }
+
+    public String loginFacebook() {
+    }
+
+    public Iterable<DelayDayRecord> getData(String stationCode) {
+    }
+
+    public Iterable<Favorit> getFavorites(String userID) {
+        return null;
     }
 }
