@@ -1,6 +1,5 @@
 package LegiestReyniers.support;
 
-import LegiestReyniers.control.ServiceController;
 import LegiestReyniers.model.DelaySingleRecord;
 import LegiestReyniers.repositories.DelaySingleRecordRepository;
 import org.springframework.context.annotation.Scope;
