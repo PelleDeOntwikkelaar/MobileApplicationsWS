@@ -5,7 +5,6 @@ import LegiestReyniers.repositories.FavoritRepository;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 
 @Service
 public class FavoritesServiceImpl {
@@ -16,12 +15,12 @@ public class FavoritesServiceImpl {
     public void addToFavorites(String stationUri, int userId){
         Favorit favorit = new Favorit();
         favorit.setStation_uri(stationUri);
-        favorit.setUserId(userId);
+        favorit.setUserid(userId);
         favoritRepository.save(favorit);
     }
 
 
-    public Iterable<Favorit> findByUserId(int userID) {
+/*    public Iterable<Favorit> findByUserId(int userID) {
 
         Iterable<Favorit> allFavorit = favoritRepository.findAll();
 
@@ -29,7 +28,7 @@ public class FavoritesServiceImpl {
 
         for(Favorit f: allFavorit){
 
-            if(f.getUserId() == userID){
+            if(f.getUserid() == userID){
                 favorits.add(f);
             }
 
@@ -38,5 +37,5 @@ public class FavoritesServiceImpl {
         Iterable<Favorit> complete = favorits;
         return complete;
 
-    }
+    }*/
 }

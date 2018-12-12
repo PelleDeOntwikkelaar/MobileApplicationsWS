@@ -11,7 +11,7 @@ public class Favorit {
     @Id
     private int id;
 
-    private int userId;
+    private int userid;
     private String station_uri;
 
     public int getId() {
@@ -22,12 +22,12 @@ public class Favorit {
         this.id = id;
     }
 
-    public int getUserId() {
-        return userId;
+    public int getUserid() {
+        return userid;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUserid(int userid) {
+        this.userid = userid;
     }
 
     public String getStation_uri() {
