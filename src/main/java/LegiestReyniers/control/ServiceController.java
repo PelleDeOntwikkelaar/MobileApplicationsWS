@@ -4,11 +4,10 @@ import LegiestReyniers.control.services.impl.FacebookServiceImpl;
 import LegiestReyniers.control.services.impl.FavoritesServiceImpl;
 import LegiestReyniers.control.services.impl.StationServiceImpl;
 import LegiestReyniers.control.services.threads.AsynchronousService1;
-import LegiestReyniers.model.DelayDayRecord;
-import LegiestReyniers.model.Email_user;
-import LegiestReyniers.model.Favorit;
-import LegiestReyniers.model.Station;
+import LegiestReyniers.control.services.threads.AsynchronousService2;
+import LegiestReyniers.model.*;
 import LegiestReyniers.repositories.DelayDayRecordRepository;
+import LegiestReyniers.repositories.DelaySingleRecordRepository;
 import LegiestReyniers.repositories.EmailUserRepository;
 import LegiestReyniers.repositories.FavoritRepository;
 import org.springframework.stereotype.Controller;
@@ -44,6 +43,15 @@ public class ServiceController {
     @Resource
     private AsynchronousService1 asynchronousService1;
 
+    @Resource
+    private AsynchronousService2 asynchronousService2;
+
+    @Resource
+    DelaySingleRecordRepository delaySingleRecordRepository;
+
+    public Iterable<DelaySingleRecord> getData(){
+        return delaySingleRecordRepository.findAll();
+    }
 
     public Iterable<Station> findAllStations() {
         return stationService.findAllStations();
@@ -59,6 +67,10 @@ public class ServiceController {
 
     public void startThread1(){
         asynchronousService1.executeAsynchronously();
+    }
+
+    public void startThread2() {
+        asynchronousService2.executeAsynchronously();
     }
 
     public Email_user loginEmail(String email, String password) {
