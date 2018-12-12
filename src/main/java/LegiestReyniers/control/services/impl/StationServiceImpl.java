@@ -41,4 +41,8 @@ public class StationServiceImpl  {
 
         trackedStationRepository.save(tracked_station);
     }
+
+    public Station findStation(String stationUri){
+        return stationRepository.findByUri(stationUri);
+    }
 }

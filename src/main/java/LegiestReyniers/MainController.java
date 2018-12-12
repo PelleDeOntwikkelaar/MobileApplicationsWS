@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
+
 @Controller                         // This means that this class is a Controller
 @RequestMapping(path="/rail4you")   // This means URL's start with /rail4you (after Application path)
 public class MainController {
@@ -52,6 +54,11 @@ public class MainController {
         return service.getData(stationCode);
     }
 
+    @GetMapping(path = "/getStations")
+    public @ResponseBody Iterable<Station> getData (@RequestParam ArrayList<String> stationUriList){
+        return service.getStationsByUri(stationUriList);
+    }
+
     @GetMapping(path = "/getFavorites")
     public @ResponseBody Iterable<Favorit> getFavorites (@RequestParam int userID){
         return service.getFavorites(userID);
@@ -63,5 +70,5 @@ public class MainController {
         return "succes";
     }
 
-    //todo: create following mappings -login, -facebook login, -get data, -get favorites, -add to tracked.
+    //todo: getstations met parameter ArrayList<String> stationuri's.
 }

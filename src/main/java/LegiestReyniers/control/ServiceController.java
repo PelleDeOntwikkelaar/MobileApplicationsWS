@@ -14,6 +14,7 @@ import LegiestReyniers.repositories.FavoritRepository;
 import org.springframework.stereotype.Controller;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 
 /**
  * Controller that will command all the different services.
@@ -79,5 +80,15 @@ public class ServiceController {
 
     public void addToTracked(String stationID) {
         stationService.addToTracked(stationID);
+    }
+
+    public Iterable<Station> getStationsByUri(ArrayList<String> stationUriList) {
+        ArrayList<Station> stationArrayList=new ArrayList<>();
+        for(String stationUri: stationUriList){
+            stationArrayList.add(stationService.findStation(stationUri));
+        }
+        Iterable<Station> output = stationArrayList;
+        return output;
+
     }
 }
