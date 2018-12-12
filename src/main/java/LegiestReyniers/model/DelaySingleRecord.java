@@ -8,6 +8,8 @@ public class DelaySingleRecord {
 
     @Id
     @Column(name="table_id")
+    //@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
+    //@SequenceGenerator(name = "id_Sequence", sequenceName = "ID_SEQ")
     private int table_id;
 
     private int timestamp;

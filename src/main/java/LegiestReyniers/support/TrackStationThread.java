@@ -78,7 +78,7 @@ public class TrackStationThread implements Runnable {
 
                     DelaySingleRecord record = new DelaySingleRecord();
 
-                    record.setTable_id(index_id);
+                    //record.setTable_id(index_id);
                     record.setStation_uri(station.getUri());
                     record.setTotaldelay(delay);
                     record.setTimestamp(i);
