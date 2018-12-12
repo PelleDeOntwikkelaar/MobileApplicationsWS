@@ -7,7 +7,6 @@ import javax.persistence.*;
 public class DelaySingleRecord {
 
     @Id
-    @Column(name="id")
     //@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
     //@SequenceGenerator(name = "id_Sequence", sequenceName = "ID_SEQ")
     private int id;
@@ -17,6 +16,7 @@ public class DelaySingleRecord {
     private int totaldelay;
     private int nontime;
     private int nover;
+    private int ndelay;
 
     public DelaySingleRecord() {}
 
@@ -28,12 +28,12 @@ public class DelaySingleRecord {
         this.timestamp = timestamp;
     }
 
-    public int getTable_id() {
+    public int getId() {
         return id;
     }
 
-    public void setTable_id(int table_id) {
-        this.id = table_id;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getStationuri() {
@@ -66,5 +66,13 @@ public class DelaySingleRecord {
 
     public void setNover(int nover) {
         this.nover = nover;
+    }
+
+    public int getNdelay() {
+        return ndelay;
+    }
+
+    public void setNdelay(int ndelay) {
+        this.ndelay = ndelay;
     }
 }
