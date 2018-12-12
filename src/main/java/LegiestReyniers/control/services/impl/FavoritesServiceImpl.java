@@ -19,23 +19,4 @@ public class FavoritesServiceImpl {
         favoritRepository.save(favorit);
     }
 
-
-/*    public Iterable<Favorit> findByUserId(int userID) {
-
-        Iterable<Favorit> allFavorit = favoritRepository.findAll();
-
-        ArrayList<Favorit> favorits = new ArrayList<>();
-
-        for(Favorit f: allFavorit){
-
-            if(f.getUserid() == userID){
-                favorits.add(f);
-            }
-
-        }
-
-        Iterable<Favorit> complete = favorits;
-        return complete;
-
-    }*/
 }

@@ -56,29 +56,30 @@ public class TrackStationThread implements Runnable {
 
                     JsonObject jsonGoogle = getJson(uri);
 
-                    //JSONObject object = new JSONObject(jsonGoogle.toString());
-
-                    //JSONArray jsonArray = new JSONArray(object.getJSONArray("@graph"));
                     JsonArray jsonArray = jsonGoogle.getAsJsonArray("@graph");
                     int delay=0;
+                    int n_overtime = 0;
+                    int n_ontime=0;
 
                     for(JsonElement element: jsonArray){
                         JsonObject obj = element.getAsJsonObject();
-                        int delay_ = obj.get("delay").getAsInt();
-                        delay += delay_;
+                        int delay_json = obj.get("delay").getAsInt();
+
+
+
+                        if(delay_json != 0)
+                            n_overtime++;
+
+
+
+                        delay += delay_json;
                     }
 
 
-                    /*for (int i =0;i<jsonArray.length();i++){
-                        JsonObject o = jsonArray.getAsJsonObject(i);
-                        delay+=o.getInt("delay");
-                    }
-*/
                     int i = (int) (new Date().getTime()/1000);
 
                     DelaySingleRecord record = new DelaySingleRecord();
 
-                    //record.setTable_id(index_id);
                     record.setStation_uri(station.getUri());
                     record.setTotaldelay(delay);
                     record.setTimestamp(i);
