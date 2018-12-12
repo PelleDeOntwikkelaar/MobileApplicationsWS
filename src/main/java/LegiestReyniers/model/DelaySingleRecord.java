@@ -7,14 +7,16 @@ import javax.persistence.*;
 public class DelaySingleRecord {
 
     @Id
-    @Column(name="table_id")
     //@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
     //@SequenceGenerator(name = "id_Sequence", sequenceName = "ID_SEQ")
-    private int table_id;
+    private int id;
 
     private int timestamp;
-    private String station_uri;
+    private String stationuri;
     private int totaldelay;
+    private int nontime;
+    private int nover;
+    private int ndelay;
 
     public DelaySingleRecord() {}
 
@@ -26,20 +28,20 @@ public class DelaySingleRecord {
         this.timestamp = timestamp;
     }
 
-    public int getTable_id() {
-        return table_id;
+    public int getId() {
+        return id;
     }
 
-    public void setTable_id(int table_id) {
-        this.table_id = table_id;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getStation_uri() {
-        return station_uri;
+    public String getStationuri() {
+        return stationuri;
     }
 
-    public void setStation_uri(String station_uri) {
-        this.station_uri = station_uri;
+    public void setStationuri(String stationuri) {
+        this.stationuri = stationuri;
     }
 
     public int getTotaldelay() {
@@ -48,5 +50,29 @@ public class DelaySingleRecord {
 
     public void setTotaldelay(int totaldelay) {
         this.totaldelay = totaldelay;
+    }
+
+    public int getNontime() {
+        return nontime;
+    }
+
+    public void setNontime(int nontime) {
+        this.nontime = nontime;
+    }
+
+    public int getNover() {
+        return nover;
+    }
+
+    public void setNover(int nover) {
+        this.nover = nover;
+    }
+
+    public int getNdelay() {
+        return ndelay;
+    }
+
+    public void setNdelay(int ndelay) {
+        this.ndelay = ndelay;
     }
 }

@@ -18,6 +18,9 @@ import javax.annotation.Resource;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Component
@@ -60,16 +63,29 @@ public class TrackStationThread implements Runnable {
                     int delay=0;
                     int n_overtime = 0;
                     int n_ontime=0;
+                    int n_delay=0;
 
                     for(JsonElement element: jsonArray){
                         JsonObject obj = element.getAsJsonObject();
+
                         int delay_json = obj.get("delay").getAsInt();
+                        String dateString = obj.get("scheduledDepartureTime").getAsString();
 
+                        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX");
+                        Date date = dateFormat.parse(dateString);
+                        long epochTime = date.getTime();
 
+                        long now = System.currentTimeMillis();
 
-                        if(delay_json != 0)
+                        if(epochTime < (now + 300000) && delay_json==0 ){
+                            n_ontime++;
+                        }
+
+                        if(delay_json > 1800)
                             n_overtime++;
 
+                        if(delay_json!=0)
+                            n_delay++;
 
 
                         delay += delay_json;
@@ -80,22 +96,26 @@ public class TrackStationThread implements Runnable {
 
                     DelaySingleRecord record = new DelaySingleRecord();
 
-                    record.setStation_uri(station.getUri());
+                    record.setId(index_id);
+                    record.setStationuri(station.getUri());
                     record.setTotaldelay(delay);
                     record.setTimestamp(i);
+                    record.setNover(n_overtime);
+                    record.setNontime(n_ontime);
+                    record.setNdelay(n_delay);
 
                     delaySingleRecordRepository.save(record);
 
                     index_id++;
                     System.out.println("Record gesaved!");
                 }
-            } catch (InterruptedException e) {
+            } catch (InterruptedException | ParseException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public JsonObject getJson(String station){
+    private JsonObject getJson(String station){
 
         String s = null;
 
@@ -105,7 +125,7 @@ public class TrackStationThread implements Runnable {
 
             //Process aanmaken waarin we
             ProcessBuilder builder = new ProcessBuilder("/bin/sh","-c"
-                    ,"wget -qO- http://irail.be/stations/NMBS/008821006 | python -m json.tool");
+                    ,cmd);
             builder.redirectErrorStream(true);
             Process p = null;
 
@@ -116,6 +136,7 @@ public class TrackStationThread implements Runnable {
             BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
             String line;
             StringBuilder sb = new StringBuilder();
+
             while (true) {
                 line = r.readLine();
                 if (line == null) {
