@@ -30,6 +30,7 @@ public class TrackStationThread implements Runnable {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TrackStationThread.class);
     private Gson gson;
+    private WGet wget;
 
     @Resource
     private StationServiceImpl stationService;
@@ -41,6 +42,7 @@ public class TrackStationThread implements Runnable {
 
     @Override
     public void run() {
+        wget=new WGet();
 
         delaySingleRecordRepository.deleteAll();
 
@@ -60,7 +62,7 @@ public class TrackStationThread implements Runnable {
                     final String uri = station.getUri();
 
 
-                    JsonObject jsonGoogle = getJson(uri);
+                    JsonObject jsonGoogle = wget.getJson(uri);
 
                     JsonArray jsonArray = jsonGoogle.getAsJsonArray("@graph");
                     int delay=0;
@@ -116,52 +118,6 @@ public class TrackStationThread implements Runnable {
                 e.printStackTrace();
             }
         }
-    }
-
-    private JsonObject getJson(String station){
-
-        String s = null;
-
-        try {
-
-            String cmd = "wget -qO- "+  station +" | python -m json.tool";
-
-            //Process aanmaken waarin we
-            ProcessBuilder builder = new ProcessBuilder("/bin/sh","-c"
-                    ,cmd);
-            builder.redirectErrorStream(true);
-            Process p = null;
-
-            p = builder.start();
-
-
-            //Reader die de output van het command zal uitlezen
-            BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            String line;
-            StringBuilder sb = new StringBuilder();
-
-            while (true) {
-                line = r.readLine();
-                if (line == null) {
-                    break;
-                }
-                if (!line.contains("Columns"))
-                    sb.append(line);
-            }
-
-            s = sb.toString();
-
-
-        }catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        Gson gson = new Gson();
-
-        JsonElement element = gson.fromJson (s, JsonElement.class);
-
-        return element.getAsJsonObject();
-
     }
 
     public void setIndex_id(int index_id) {
