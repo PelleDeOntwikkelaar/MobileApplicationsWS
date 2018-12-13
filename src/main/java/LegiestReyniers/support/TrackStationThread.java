@@ -25,9 +25,12 @@ import java.util.Date;
 
 @Component
 @Scope("prototype")
+@SuppressWarnings("Duplicates")
 public class TrackStationThread implements Runnable {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(TrackStationThread.class);
     private Gson gson;
+
     @Resource
     private StationServiceImpl stationService;
 
