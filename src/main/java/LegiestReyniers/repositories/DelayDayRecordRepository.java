@@ -8,6 +8,4 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface DelayDayRecordRepository extends CrudRepository<DelayDayRecord, Integer> {
 
-    Iterable<DelayDayRecord> findByStationuri (String stationuri);
-
 }
