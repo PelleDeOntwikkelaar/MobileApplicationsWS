@@ -1,5 +1,6 @@
 package LegiestReyniers.control;
 
+import LegiestReyniers.control.services.impl.DayRecordServiceImpl;
 import LegiestReyniers.control.services.impl.FacebookServiceImpl;
 import LegiestReyniers.control.services.impl.FavoritesServiceImpl;
 import LegiestReyniers.control.services.impl.StationServiceImpl;
@@ -39,7 +40,7 @@ public class ServiceController {
     private FacebookServiceImpl facebookService;
 
     @Resource
-    private DelayDayRecordRepository delayDayRecordRepository;
+    private DayRecordServiceImpl dayRecordService;
 
     @Resource
     private AsynchronousService1 asynchronousService1;
@@ -84,7 +85,7 @@ public class ServiceController {
     }
 
     public Iterable<DelayDayRecord> getData(String stationuri) {
-        return delayDayRecordRepository.findByStationuri(stationuri);
+        return dayRecordService.getAllByStationuri(stationuri);
     }
 
     public Iterable<Favorit> getFavorites(int userID) {

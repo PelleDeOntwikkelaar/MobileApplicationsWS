@@ -55,7 +55,6 @@ public class DataAnalysisThread implements Runnable{
             JsonArray ontime = new JsonArray();
             JsonArray over = new JsonArray();
 
-
             for(DelaySingleRecord dsr: rawData){
                 if(ts.getUri().equals(dsr.getStationuri())){
                     ontime.add(dsr.getNontime());
@@ -77,7 +76,7 @@ public class DataAnalysisThread implements Runnable{
 
             try {
 
-                String path = System.getProperty("user.dir") + "\\Json\\" + ts.getUri().substring(32) + ".json";
+                String path = System.getProperty("user.dir") + "/Json/" + ts.getUri().substring(32) + ".json";
 
                 FileWriter file = new FileWriter(path);
                 file.write(main.toString());
@@ -93,8 +92,9 @@ public class DataAnalysisThread implements Runnable{
 
         runR();
 
+        String path = System.getProperty("user.dir") + "/JsonProc/";
 
-        File folder = new File("C:\\Users\\woute\\Documents\\JsonProc");
+        File folder = new File(path);
         File[] listOfFiles = folder.listFiles();
 
 
@@ -128,7 +128,6 @@ public class DataAnalysisThread implements Runnable{
             record.setId(index_id);
 
             delayDayRecordRepository.save(record);
-
 
             System.out.println(json.getClass());
             System.out.println(json.toString());

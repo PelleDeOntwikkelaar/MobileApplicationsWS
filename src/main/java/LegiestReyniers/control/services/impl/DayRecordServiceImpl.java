@@ -1,5 +1,6 @@
 package LegiestReyniers.control.services.impl;
 
+import LegiestReyniers.model.DelayDayRecord;
 import LegiestReyniers.repositories.DelayDayRecordRepository;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,12 @@ public class DayRecordServiceImpl {
     DelayDayRecordRepository delayDayRecordRepository;
 
 
-    public Iterable<D>
+    public Iterable<DelayDayRecord> getAllByStationuri(String stationuri){
+
+        String uri = stationuri.substring(32).concat("_proc.json");
+
+        return delayDayRecordRepository.findByStationuri(uri);
+
+    }
 
 }

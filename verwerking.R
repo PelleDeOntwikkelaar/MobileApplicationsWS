@@ -4,12 +4,12 @@ print("Hello World!")
 
 # https://blogazonia.wordpress.com/2014/05/08/import-multiple-files-to-r/
 
-setwd("~/Json")
+setwd("/Users/pellereyniers/IdeaProjects/MobileApplicationsWS/Json")
 
 listfiles<-list.files(pattern=".json$")
 
 for (i in listfiles){
-    setwd("~/Json")
+    setwd("/Users/pellereyniers/IdeaProjects/MobileApplicationsWS/Json")
 result <- fromJSON(file = i)
 
 avg = result$avg
@@ -26,7 +26,7 @@ arrayst[[5]] <- sum(over)
 arrayst[[6]] <- sum(ontime)
 
 namepath = paste(substr(i, 0, 8), "proc.json", sep="_")
-    setwd("~/JsonProc")
+    setwd("/Users/pellereyniers/IdeaProjects/MobileApplicationsWS/JsonProc")
 exportJson <- toJSON(arrayst)
 write(exportJson, namepath)
 }
