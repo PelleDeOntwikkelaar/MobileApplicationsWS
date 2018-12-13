@@ -54,6 +54,11 @@ public class MainController {
         return service.getData(stationCode);
     }
 
+    @GetMapping(path = "/getApiData")
+    public @ResponseBody String getStationCode (@RequestParam String stationCode){
+        return service.getApiData(stationCode);
+    }
+
     @GetMapping(path = "/getStations")
     public @ResponseBody Iterable<Station> getData (@RequestParam ArrayList<String> stationUriList){
         return service.getStationsByUri(stationUriList);
@@ -70,5 +75,5 @@ public class MainController {
         return "succes";
     }
 
-    //todo: getstations met parameter ArrayList<String> stationuri's.
+
 }

@@ -10,6 +10,7 @@ import LegiestReyniers.repositories.DelayDayRecordRepository;
 import LegiestReyniers.repositories.DelaySingleRecordRepository;
 import LegiestReyniers.repositories.EmailUserRepository;
 import LegiestReyniers.repositories.FavoritRepository;
+import LegiestReyniers.support.WGet;
 import org.springframework.stereotype.Controller;
 
 import javax.annotation.Resource;
@@ -102,5 +103,10 @@ public class ServiceController {
         Iterable<Station> output = stationArrayList;
         return output;
 
+    }
+
+    public String getApiData(String stationCode) {
+        WGet wGet= new WGet();
+        return wGet.getJson(stationCode).toString();
     }
 }
