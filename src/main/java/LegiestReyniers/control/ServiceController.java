@@ -129,5 +129,11 @@ public class ServiceController {
         return emailService.addMail(name, userCredentials);
     }
 
+    public boolean isFavorite(String stationCode, int parseInt) {
+        return favoritesService.isFavorit(stationCode, parseInt);
+    }
+
+
+
 
 }

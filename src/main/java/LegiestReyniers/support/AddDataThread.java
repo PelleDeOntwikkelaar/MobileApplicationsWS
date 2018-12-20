@@ -41,6 +41,7 @@ public class AddDataThread implements Runnable {
                     dgr.addMax(ddr.getMax_delay());
                     dgr.addOver(ddr.getN_over30min());
                     dgr.addOn(ddr.getN_ontime());
+
                 }
             }
             delayGlobalRecordRepository.save(dgr);

@@ -34,6 +34,17 @@ public class MainController {
         return "succes";
     }
 
+    @GetMapping(path= "/isFavorit")
+    public @ResponseBody String isFavorite(@RequestParam String stationCode, @RequestParam String userId){
+        if(service.isFavorite(stationCode,Integer.parseInt(userId))){
+            return "TRUE";
+        }else{
+            return "FALSE";
+        }
+
+
+    }
+
     @GetMapping(path = "/loginEmail")
     public @ResponseBody Email_user loginEmail(@RequestHeader String userCredentials){
         return service.loginEmail(userCredentials);

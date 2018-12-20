@@ -7,4 +7,6 @@ public interface FavoritRepository extends CrudRepository<Favorit, Integer> {
 
     Iterable<Favorit> findByUserid (int id);
 
+
+
 }

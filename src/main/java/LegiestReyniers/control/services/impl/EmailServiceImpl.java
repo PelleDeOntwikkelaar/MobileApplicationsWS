@@ -24,7 +24,7 @@ public class EmailServiceImpl {
 
         emailUserRepository.save(email_user);
 
-        return emailUserRepository.findByEmailAndAndName(name, split[0]);
+        return emailUserRepository.findByEmailAndAndName(split[0],name);
 
     }
 
