@@ -92,7 +92,7 @@ public class DelayGlobalRecord {
     }
 
     public void addMin(int i){
-        if(i < min_delay)
+        if(i < min_delay && i !=0)
             min_delay=i;
     }
 
