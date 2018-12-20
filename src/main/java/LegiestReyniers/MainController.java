@@ -1,10 +1,7 @@
 package LegiestReyniers;
 
 import LegiestReyniers.control.ServiceController;
-import LegiestReyniers.model.DelayDayRecord;
-import LegiestReyniers.model.Email_user;
-import LegiestReyniers.model.Favorit;
-import LegiestReyniers.model.Station;
+import LegiestReyniers.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -48,7 +45,7 @@ public class MainController {
     }
 
     @GetMapping(path = "/getData")
-    public @ResponseBody Iterable<DelayDayRecord> getData (@RequestParam String stationCode){
+    public @ResponseBody Iterable<DelayGlobalRecord> getData (@RequestParam String stationCode){
         return service.getData(stationCode);
     }
 
@@ -82,7 +79,5 @@ public class MainController {
     public @ResponseBody Email_user addMail (@RequestParam String name, @RequestHeader String userCredentials) {
         return service.addName(name,userCredentials);
     }
-
-    //TODO: Getdata; ipv day record, naar de geanalyseerde data -> Extra tabel voor algemene data
 
 }

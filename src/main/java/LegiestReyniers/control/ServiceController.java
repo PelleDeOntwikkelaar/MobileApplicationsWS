@@ -5,6 +5,7 @@ import LegiestReyniers.control.services.threads.AsynchronousService1;
 import LegiestReyniers.control.services.threads.AsynchronousService2;
 import LegiestReyniers.control.services.threads.AsynchronousService3;
 import LegiestReyniers.model.*;
+import LegiestReyniers.repositories.DelayGlobalRecordRepository;
 import LegiestReyniers.repositories.DelaySingleRecordRepository;
 import LegiestReyniers.repositories.EmailUserRepository;
 import LegiestReyniers.repositories.FavoritRepository;
@@ -41,6 +42,9 @@ public class ServiceController {
 
     @Resource
     private DayRecordServiceImpl dayRecordService;
+
+    @Resource
+    private DelayGlobalRecordRepository delayGlobalRecordRepository;
 
     @Resource
     private AsynchronousService1 asynchronousService1;
@@ -94,8 +98,8 @@ public class ServiceController {
         facebookService.addFacebook(id,name);
     }
 
-    public Iterable<DelayDayRecord> getData(String stationuri) {
-        return dayRecordService.getAllByStationuri(stationuri);
+    public Iterable<DelayGlobalRecord> getData(String stationuri) {
+        return delayGlobalRecordRepository.findAll();
     }
 
     public Iterable<Favorit> getFavorites(int userID) {

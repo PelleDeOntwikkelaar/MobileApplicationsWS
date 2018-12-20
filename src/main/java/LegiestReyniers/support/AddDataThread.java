@@ -33,7 +33,6 @@ public class AddDataThread implements Runnable {
         for (DelayGlobalRecord dgr: all){
 
             for (DelayDayRecord ddr: days){
-
                 if(dgr.getStationuri().equals(ddr.getStationuri())){
 
                     dgr.addTotal(ddr.getTotal_delay());
@@ -42,7 +41,6 @@ public class AddDataThread implements Runnable {
                     dgr.addMax(ddr.getMax_delay());
                     dgr.addOver(ddr.getN_over30min());
                     dgr.addOn(ddr.getN_ontime());
-
                 }
             }
             delayGlobalRecordRepository.save(dgr);

@@ -42,6 +42,7 @@ public class TrackStationThread implements Runnable {
 
     @Override
     public void run() {
+
         wget=new WGet();
 
         delaySingleRecordRepository.deleteAll();

@@ -5,7 +5,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="delay_global_record")
+@Table(name="delayglobalrecord")
 public class DelayGlobalRecord {
 
     @Id
@@ -13,7 +13,7 @@ public class DelayGlobalRecord {
 
     private String stationuri;
     private int total_delay;
-    private int average_delay;
+    private int avg_delay;
     private int min_delay;
     private int max_delay;
     private int n_over30min;
@@ -43,12 +43,12 @@ public class DelayGlobalRecord {
         this.total_delay = total_delay;
     }
 
-    public int getAverage_delay() {
-        return average_delay;
+    public int getAvg_delay() {
+        return avg_delay;
     }
 
-    public void setAverage_delay(int average_delay) {
-        this.average_delay = average_delay;
+    public void setAvg_delay(int avg_delay) {
+        this.avg_delay = avg_delay;
     }
 
     public int getMin_delay() {
@@ -88,7 +88,7 @@ public class DelayGlobalRecord {
     }
 
     public void addAvg(int i){
-        average_delay = (average_delay+i)/2;
+        avg_delay = (avg_delay +i)/2;
     }
 
     public void addMin(int i){

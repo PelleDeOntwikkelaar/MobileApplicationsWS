@@ -23,13 +23,11 @@ public class WGet {
             String cmd = "wget -qO- "+  station +" | python -m json.tool";
 
             //Process aanmaken waarin we
-            ProcessBuilder builder = new ProcessBuilder("/bin/sh","-c"
-                    ,cmd);
+            ProcessBuilder builder = new ProcessBuilder("/bin/sh","-c",cmd);
             builder.redirectErrorStream(true);
             Process p = null;
 
             p = builder.start();
-
 
             //Reader die de output van het command zal uitlezen
             BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
