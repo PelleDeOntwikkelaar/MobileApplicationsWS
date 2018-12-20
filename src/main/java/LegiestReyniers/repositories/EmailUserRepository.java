@@ -10,4 +10,6 @@ public interface EmailUserRepository extends CrudRepository<Email_user, Integer>
 
     Email_user findByEmailAndPassword(String email, String password);
 
+    Email_user findByEmailAndAndName(String email, String name);
+
 }

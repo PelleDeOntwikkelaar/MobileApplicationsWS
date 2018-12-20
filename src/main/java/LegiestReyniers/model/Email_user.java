@@ -16,6 +16,7 @@ public class Email_user {
     private int user_id;
     private String email;
     private String password;
+    private String name;
 
 
     public int getUser_id() {
@@ -40,6 +41,14 @@ public class Email_user {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override

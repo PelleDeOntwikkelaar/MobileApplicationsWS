@@ -7,10 +7,7 @@ import LegiestReyniers.model.Favorit;
 import LegiestReyniers.model.Station;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
@@ -24,7 +21,8 @@ public class MainController {
     public MainController(ServiceController service) {
         this.service = service;
         //this.service.startThread1();
-        this.service.startThread2();
+        //this.service.startThread2();
+        this.service.startThread3();
     }
 
     @GetMapping(path="/stations")
@@ -40,8 +38,8 @@ public class MainController {
     }
 
     @GetMapping(path = "/loginEmail")
-    public @ResponseBody Email_user loginEmail(@RequestParam String email, @RequestParam String password){
-        return service.loginEmail(email, password);
+    public @ResponseBody Email_user loginEmail(@RequestHeader String userCredentials){
+        return service.loginEmail(userCredentials);
     }
 
     @GetMapping(path = "/loginFacebook")
@@ -75,9 +73,16 @@ public class MainController {
         return "succes";
     }
 
-    //TODO: Mapping Register from email, als header heeft die user credential
-    //TODO: Getdata; ipv day record, naar de geanalyseerde data
-    //TODO: Extra tabel voor algemene
-    //TODO: Get tracked, geeft een iterable(station objecten)
+    @GetMapping(path = "/getTracked")
+    public @ResponseBody Iterable<Station> getTracked (){
+        return service.findAllTrackedStations();
+    }
+
+    @GetMapping(path = "/addMail")
+    public @ResponseBody Email_user addMail (@RequestParam String name, @RequestHeader String userCredentials) {
+        return service.addName(name,userCredentials);
+    }
+
+    //TODO: Getdata; ipv day record, naar de geanalyseerde data -> Extra tabel voor algemene data
 
 }

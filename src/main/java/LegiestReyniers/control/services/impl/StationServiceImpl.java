@@ -1,5 +1,6 @@
 package LegiestReyniers.control.services.impl;
 
+import LegiestReyniers.model.Favorit;
 import LegiestReyniers.model.Station;
 import LegiestReyniers.model.Tracked_station;
 import LegiestReyniers.repositories.StationRepository;

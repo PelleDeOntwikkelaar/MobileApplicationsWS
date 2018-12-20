@@ -1,13 +1,10 @@
 package LegiestReyniers.control;
 
-import LegiestReyniers.control.services.impl.DayRecordServiceImpl;
-import LegiestReyniers.control.services.impl.FacebookServiceImpl;
-import LegiestReyniers.control.services.impl.FavoritesServiceImpl;
-import LegiestReyniers.control.services.impl.StationServiceImpl;
+import LegiestReyniers.control.services.impl.*;
 import LegiestReyniers.control.services.threads.AsynchronousService1;
 import LegiestReyniers.control.services.threads.AsynchronousService2;
+import LegiestReyniers.control.services.threads.AsynchronousService3;
 import LegiestReyniers.model.*;
-import LegiestReyniers.repositories.DelayDayRecordRepository;
 import LegiestReyniers.repositories.DelaySingleRecordRepository;
 import LegiestReyniers.repositories.EmailUserRepository;
 import LegiestReyniers.repositories.FavoritRepository;
@@ -37,6 +34,9 @@ public class ServiceController {
     private EmailUserRepository emailUserRepository;
 
     @Resource
+    private EmailServiceImpl emailService;
+
+    @Resource
     private FacebookServiceImpl facebookService;
 
     @Resource
@@ -47,6 +47,9 @@ public class ServiceController {
 
     @Resource
     private AsynchronousService2 asynchronousService2;
+
+    @Resource
+    private AsynchronousService3 asynchronousService3;
 
     @Resource
     DelaySingleRecordRepository delaySingleRecordRepository;
@@ -75,8 +78,15 @@ public class ServiceController {
         asynchronousService2.executeAsynchronously();
     }
 
-    public Email_user loginEmail(String email, String password) {
-        return emailUserRepository.findByEmailAndPassword(email,password);
+    public void startThread3() {
+        asynchronousService3.executeAsynchronously();
+    }
+
+    public Email_user loginEmail(String userCredentials) {
+
+        String[] split = userCredentials.split(":");
+
+        return emailUserRepository.findByEmailAndPassword(split[0],split[1]);
     }
 
     public void loginFacebook(String name, int id) {
@@ -110,4 +120,10 @@ public class ServiceController {
         WGet wGet= new WGet();
         return wGet.getJson(stationCode).toString();
     }
+
+    public Email_user addName(String name, String userCredentials) {
+        return emailService.addMail(name, userCredentials);
+    }
+
+
 }
