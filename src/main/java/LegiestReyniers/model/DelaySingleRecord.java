@@ -11,7 +11,7 @@ public class DelaySingleRecord {
     //@SequenceGenerator(name = "id_Sequence", sequenceName = "ID_SEQ")
     private int id;
 
-    private int timestamp;
+    private long timestamp;
     private String stationuri;
     private int totaldelay;
     private int nontime;
@@ -20,7 +20,7 @@ public class DelaySingleRecord {
 
     public DelaySingleRecord() {}
 
-    public int getTimestamp() {
+    public long getTimestamp() {
         return timestamp;
     }
 

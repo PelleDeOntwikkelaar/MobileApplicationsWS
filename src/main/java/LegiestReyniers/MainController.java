@@ -75,5 +75,9 @@ public class MainController {
         return "succes";
     }
 
+    //TODO: Mapping Register from email, als header heeft die user credential
+    //TODO: Getdata; ipv day record, naar de geanalyseerde data
+    //TODO: Extra tabel voor algemene
+    //TODO: Get tracked, geeft een iterable(station objecten)
 
 }
